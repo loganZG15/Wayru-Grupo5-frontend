@@ -1,0 +1,96 @@
+<div class="container">
+  <div style="text-align: center; margin: 2%"><h2>Actualizar Incidencia</h2></div>
+  <div style="text-align: center; margin: 3%">
+    <form [formGroup]="form" (submit)="aceptar()" class="example-form">
+      <mat-form-field>
+        <mat-label>ID:</mat-label>
+        <input matInput formControlName="codigo" readonly="true" />
+      </mat-form-field>
+
+      <br />
+      <mat-form-field>
+        <mat-label>Descripción</mat-label>
+        <textarea matInput formControlName="descripcion"></textarea>
+        <mat-error>
+          @if (form.get('descripcion')?.hasError('required')) {
+            Ingrese una descripción!!
+          }
+          @if (form.get('descripcion')?.hasError('maxlength')) {
+            Máximo 250 caracteres!!
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <br />
+      <div>
+        <mat-form-field>
+          <mat-label>Fecha de la incidencia</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="fecha" />
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error>
+            @if (form.get('fecha')?.hasError('required')) {
+              La fecha es obligatoria.
+            }
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <br />
+      <mat-form-field>
+        <mat-label>ID Usuario</mat-label>
+        <input matInput type="number" formControlName="idUsuario" />
+        <mat-error>
+          @if (form.get('idUsuario')?.hasError('required')) {
+            Ingrese el ID del usuario!!
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <br />
+      <mat-form-field>
+        <mat-label>Categoría</mat-label>
+        <mat-select formControlName="idCategoria">
+          @for (c of categorias; track c.idCategoria) {
+            <mat-option [value]="c.idCategoria">{{ c.nombreCategoria }} ({{ c.subCategoria }})</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('idCategoria')?.hasError('required')) {
+            Seleccione una categoría.
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <br />
+      <mat-form-field>
+        <mat-label>Distrito</mat-label>
+        <mat-select formControlName="idDistrito">
+          @for (d of distritos; track d.idDistrito) {
+            <mat-option [value]="d.idDistrito">{{ d.nombreDistrito }}</mat-option>
+          }
+        </mat-select>
+        <mat-error>
+          @if (form.get('idDistrito')?.hasError('required')) {
+            Seleccione un distrito.
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <br /><br />
+      <div style="margin: 0.5%">
+        <label>Estado</label>
+        <mat-radio-group aria-label="Estado" formControlName="estado">
+          <mat-radio-button [value]="true">Activa</mat-radio-button>
+          <mat-radio-button [value]="false">Inactiva</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div>
+        <button matButton="elevated">Actualizar</button>
+      </div>
+    </form>
+  </div>
+</div>
+

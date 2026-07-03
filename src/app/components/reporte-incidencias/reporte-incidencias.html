@@ -1,0 +1,33 @@
+<div class="chart-container">
+  <h2 class="chart-title">Reporte de incidencias por categoría</h2>
+
+  <div class="chart-wrapper">
+    @if (loading) {
+      <div class="no-data">
+        <p class="no-data-message">Cargando reporte...</p>
+      </div>
+    }
+
+    @if (!loading && hasData) {
+      <div class="chart-wrapper chart-line">
+        <canvas
+          baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [legend]="barChartLegend"
+          [type]="barChartType"
+        >
+        </canvas>
+      </div>
+    }
+
+    @if (!loading && !hasData) {
+      <div class="no-data">
+        <mat-icon class="no-data-icon"> info_outline </mat-icon>
+
+        <p class="no-data-message">No hay datos disponibles para mostrar.</p>
+      </div>
+    }
+  </div>
+</div>

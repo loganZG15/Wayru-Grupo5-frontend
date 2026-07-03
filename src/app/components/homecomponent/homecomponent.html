@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="text">
+    <h1>Wayru</h1>
+    <p>
+      Plataforma ciudadana para reportar incidencias en tu distrito: baches, fugas de agua,
+      iluminación, seguridad y más. Registra una incidencia, haz seguimiento a su estado y
+      revisa lo que está pasando en tu zona.
+    </p>
+
+    <div class="home-actions">
+      @if (!estaLogueado()) {
+        <button matButton="elevated" class="btn-login" routerLink="/login">
+          <mat-icon>login</mat-icon>
+          Iniciar sesión
+        </button>
+      }
+      <button matButton="elevated" class="btn-reportes" routerLink="/reporte-incidencias">
+        <mat-icon>bar_chart</mat-icon>
+        Ver reportes
+      </button>
+    </div>
+  </div>
+</div>

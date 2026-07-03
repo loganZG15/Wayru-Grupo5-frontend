@@ -1,0 +1,41 @@
+<div class="container">
+  <div style="text-align: center; margin: 2%"><h2>Registrar Categoría</h2></div>
+  <div style="text-align: center; margin: 3%">
+    <form [formGroup]="form" (submit)="aceptar()" class="example-form">
+      <mat-form-field>
+        <mat-label>Nombre de categoría</mat-label>
+        <input matInput formControlName="nombreCategoria" />
+        <mat-error>
+          @if (form.get('nombreCategoria')?.hasError('required')) {
+            Ingrese el nombre de la categoría!!
+          }
+          @if (form.get('nombreCategoria')?.hasError('maxlength')) {
+            Máximo 50 caracteres!!
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <br />
+      <mat-form-field>
+        <mat-label>Subcategoría</mat-label>
+        <input matInput formControlName="subCategoria" />
+        <mat-error>
+          @if (form.get('subCategoria')?.hasError('required')) {
+            Ingrese la subcategoría!!
+          }
+          @if (form.get('subCategoria')?.hasError('maxlength')) {
+            Máximo 50 caracteres!!
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <br />
+      @if (errorMsg) {
+        <div class="error-box">{{ errorMsg }}</div>
+      }
+      <div>
+        <button matButton="elevated">Registrar</button>
+      </div>
+    </form>
+  </div>
+</div>

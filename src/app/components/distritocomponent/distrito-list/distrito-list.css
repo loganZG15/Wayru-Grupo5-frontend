@@ -1,0 +1,65 @@
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(74, 111, 168, 0.12);
+  overflow-x: auto;
+}
+
+.container h2 {
+  color: #2c3e50;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th.mat-mdc-header-cell {
+  background-color: #4a6fa8;
+  color: white;
+  font-weight: 600;
+  padding: 12px 16px !important;
+  white-space: nowrap;
+}
+
+td.mat-mdc-cell {
+  padding: 12px 16px !important;
+}
+
+tr.mat-mdc-row:nth-child(even) {
+  background-color: #f8f7ff;
+}
+
+tr.mat-mdc-row:hover {
+  background-color: #fff1ef;
+  transition: background-color 0.2s ease;
+}
+
+.btn-editar {
+  background-color: #ff6f61 !important;
+  color: white !important;
+  border-radius: 8px;
+  min-width: 40px;
+  transition: 0.3s;
+}
+
+.btn-editar:hover {
+  background-color: #ff8a7f !important;
+  transform: scale(1.05);
+}
+
+.btn-eliminar {
+  background-color: #f44336 !important;
+  color: white !important;
+  border-radius: 8px;
+  min-width: 40px;
+  transition: 0.3s;
+}
+
+.btn-eliminar:hover {
+  background-color: #d32f2f !important;
+  transform: scale(1.05);
+}

@@ -1,0 +1,46 @@
+<div class="container">
+  <div style="text-align: center; margin: 2%"><h2>Registrar Distrito</h2></div>
+  <div style="text-align: center; margin: 3%">
+    <form [formGroup]="form" (submit)="aceptar()" class="example-form">
+      <mat-form-field>
+        <mat-label>Nombre del distrito</mat-label>
+        <input matInput formControlName="nombreDistrito" />
+        <mat-error>
+          @if (form.get('nombreDistrito')?.hasError('required')) {
+            Ingrese el nombre del distrito!!
+          }
+          @if (form.get('nombreDistrito')?.hasError('maxlength')) {
+            Máximo 50 caracteres!!
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <br />
+      <mat-form-field>
+        <mat-label>Latitud</mat-label>
+        <input matInput type="number" step="any" formControlName="latitud" />
+        <mat-error>
+          @if (form.get('latitud')?.hasError('required')) {
+            Ingrese la latitud!!
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <br />
+      <mat-form-field>
+        <mat-label>Longitud</mat-label>
+        <input matInput type="number" step="any" formControlName="longitud" />
+        <mat-error>
+          @if (form.get('longitud')?.hasError('required')) {
+            Ingrese la longitud!!
+          }
+        </mat-error>
+      </mat-form-field>
+
+      <br />
+      <div>
+        <button matButton="elevated">Registrar</button>
+      </div>
+    </form>
+  </div>
+</div>
