@@ -50,17 +50,17 @@ button[matButton='elevated'] {
 }
 
 .btn-reportes {
-  background-color: #ff6f61;
+  background-color: #ff6f61 !important;
 }
 
 .btn-reportes:hover {
-  background-color: #ff8a7f;
+  background-color: #ff8a7f !important;
 }
 
 .btn-login {
-  background-color: #4a6fa8;
+  background-color: #4a6fa8 !important;
 }
 
 .btn-login:hover {
-  background-color: #5f81b8;
+  background-color: #5f81b8 !important;
 }

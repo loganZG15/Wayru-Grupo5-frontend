@@ -36,6 +36,11 @@ body {
   margin-right: 8px;
 }
 
+mat-icon[matPrefix] {
+  font-family: 'Material Icons' !important;
+  font-size: 20px;
+}
+
 /* Botón */
 button[mat-raised-button] {
   width: 100%;
