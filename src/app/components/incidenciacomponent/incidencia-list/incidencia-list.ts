@@ -1,4 +1,4 @@
-import { Component , OnInit} from '@angular/core';
+import { Component , OnInit, ViewChild} from '@angular/core';
 import { incidencias } from '../../../models/incidencias';
 import { IncidenciasServices } from '../../../services/incidencias-services';
 import { CategoriaIncidenciaServices } from '../../../services/categoria-incidencia-services';
@@ -8,10 +8,11 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../../services/login-service';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-incidencia-list',
-  imports: [MatTableModule, CommonModule, MatIconModule, RouterLink],
+  imports: [MatTableModule, CommonModule, MatIconModule, RouterLink, MatPaginatorModule],
   templateUrl: './incidencia-list.html',
   styleUrl: './incidencia-list.css',
 })
@@ -21,6 +22,8 @@ export class IncidenciaList implements OnInit{
 
   categorias: Map<number, string> = new Map();
   distritos: Map<number, string> = new Map();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private iS: IncidenciasServices,
