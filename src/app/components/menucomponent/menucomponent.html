@@ -32,7 +32,7 @@
 
       @if (verificar()) {
         <button mat-button [matMenuTriggerFor]="menuSalir">
-          <mat-icon>person</mat-icon>Usuario
+          <mat-icon>account_circle</mat-icon>{{ nombreUsuario || 'Usuario' }}
         </button>
       } @else {
         <button matButton class="btn-rojo" routerLink="/login">
@@ -97,13 +97,19 @@
       </button>
     </mat-menu>
 
-    <mat-menu #menuSalir="matMenu">
+    <mat-menu #menuSalir="matMenu" xPosition="before">
+      <div class="profile-card" (click)="$event.stopPropagation()">
+        <div class="profile-avatar">
+          <mat-icon>account_circle</mat-icon>
+        </div>
+        <div class="profile-name">{{ nombreUsuario || 'Usuario' }}</div>
+        <div class="profile-email">{{ email }}</div>
+        <div class="profile-role">Rol: {{ role }}</div>
+      </div>
+      <mat-divider></mat-divider>
       <button mat-menu-item routerLink="/login" (click)="cerrar()">
         <mat-icon>logout</mat-icon>
         <span>Cerrar sesión</span>
-      </button>
-      <button mat-menu-item disabled>
-        Rol: <span>{{ role }}</span>
       </button>
     </mat-menu>
   </div>

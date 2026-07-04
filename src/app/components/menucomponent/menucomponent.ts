@@ -1,25 +1,61 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../services/login-service';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-menucomponent',
-  imports: [MatToolbarModule, MatIconModule, MatButtonModule, RouterLink, MatMenuModule],
+  imports: [MatToolbarModule, MatIconModule, MatButtonModule, RouterLink, MatMenuModule, MatDividerModule],
   templateUrl: './menucomponent.html',
   styleUrl: './menucomponent.css',
 })
-export class Menucomponent {
+export class Menucomponent implements OnInit {
   role: string = '';
-  usuario: string = '';
+  nombreUsuario: string = '';
+  email: string = '';
+  private perfilCargado = false;
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    if (this.loginService.verificar()) {
+      this.role = this.loginService.showRole() ?? '';
+      this.cargarPerfil();
+    }
+  }
+
+
+   cargarPerfil() {
+    if (this.perfilCargado) {
+      return;
+    }
+    this.loginService.getPerfil().subscribe({
+      next: (data) => {
+        this.nombreUsuario = data.nombreUsuario;
+        this.email = data.email;
+        this.perfilCargado = true;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.perfilCargado = true;
+      },
+    });
+  }
+
 
   cerrar() {
     sessionStorage.clear();
+    this.perfilCargado = false;
+    this.nombreUsuario = '';
+    this.email = '';
   }
 
 
