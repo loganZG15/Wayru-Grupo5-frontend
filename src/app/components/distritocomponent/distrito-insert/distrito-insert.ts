@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @Component({
   selector: 'app-distrito-insert',
@@ -13,7 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    GoogleMapsModule,
   ],
   templateUrl: './distrito-insert.html',
   styleUrl: './distrito-insert.css',
@@ -22,6 +24,11 @@ export class DistritoInsert implements OnInit {
   form: FormGroup = new FormGroup({});
   dist: Distrito = new Distrito();
 
+  center: google.maps.LatLngLiteral = { lat: -12.0464, lng: -77.0428 };
+  zoom = 12;
+  markerPosition: google.maps.LatLngLiteral | null = null;
+  buscandoLugar = false;
+  private geocoder = new google.maps.Geocoder();
   constructor(
     private dS: DistritoServices,
     private router: Router,
@@ -34,6 +41,45 @@ export class DistritoInsert implements OnInit {
       latitud: ['', Validators.required],
       longitud: ['', Validators.required],
     });
+  }
+
+  onMapClick(event: google.maps.MapMouseEvent): void {
+    const lat = event.latLng?.lat();
+    const lng = event.latLng?.lng();
+    if (lat == null || lng == null) {
+      return;
+    }
+
+    this.markerPosition = { lat, lng };
+    this.buscandoLugar = true;
+
+    this.form.patchValue({
+      latitud: lat.toFixed(6),
+      longitud: lng.toFixed(6),
+    });
+
+    this.geocoder.geocode({ location: { lat, lng } }, (results, status) => {
+      this.buscandoLugar = false;
+
+      if (status === 'OK' && results && results.length > 0) {
+        const nombre = this.extraerNombreDistrito(results);
+        if (nombre) {
+          this.form.patchValue({ nombreDistrito: nombre });
+        }
+      }
+    });
+  }
+
+  private extraerNombreDistrito(results: google.maps.GeocoderResult[]): string | null {
+    for (const result of results) {
+      const componente = result.address_components.find(
+        (c) => c.types.includes('locality') || c.types.includes('sublocality')
+      );
+      if (componente) {
+        return componente.long_name;
+      }
+    }
+    return null;
   }
 
   aceptar(): void {
