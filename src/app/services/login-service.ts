@@ -52,4 +52,9 @@ export class LoginService {
 
     return decodedToken.roles;
   }
+
+  getPerfil() {
+  return this.http.get<any>(`${base_url}/api/usuarios/mi-perfil`);
+  }
+
 }
