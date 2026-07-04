@@ -31,3 +31,9 @@ button[matButton='elevated']:hover {
   color: #2c3e50;
 }
 
+google-map {
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(74, 111, 168, 0.15);
+}

@@ -1,5 +1,27 @@
 <div class="container">
   <div style="text-align: center; margin: 2%"><h2>Registrar Distrito</h2></div>
+
+  <div style="text-align: center; margin: 0 auto 1rem auto; max-width: 700px">
+    <p style="font-size: 0.9rem; color: #666">
+      Haz clic en el mapa sobre el distrito que quieres registrar. El nombre, la latitud y la
+      longitud se completan solos.
+    </p>
+    <google-map
+      height="350px"
+      width="100%"
+      [center]="center"
+      [zoom]="zoom"
+      (mapClick)="onMapClick($event)"
+    >
+      @if (markerPosition) {
+        <map-marker [position]="markerPosition"></map-marker>
+      }
+    </google-map>
+    @if (buscandoLugar) {
+      <p style="font-size: 0.85rem; color: #4a6fa8">Buscando el nombre del lugar...</p>
+    }
+  </div>
+
   <div style="text-align: center; margin: 3%">
     <form [formGroup]="form" (submit)="aceptar()" class="example-form">
       <mat-form-field>
