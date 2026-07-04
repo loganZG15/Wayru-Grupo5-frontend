@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Distrito } from '../../../models/distrito';
 import { DistritoServices } from '../../../services/distrito-services';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { LoginService } from '../../../services/login-service';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-distrito-list',
@@ -13,7 +14,8 @@ import { LoginService } from '../../../services/login-service';
     MatTableModule,
     CommonModule,
     MatIconModule,
-    RouterLink
+    RouterLink,
+    MatPaginatorModule
   ],
   templateUrl: './distrito-list.html',
   styleUrl: './distrito-list.css',
@@ -21,6 +23,9 @@ import { LoginService } from '../../../services/login-service';
 export class DistritoList implements OnInit {
   dataSource: MatTableDataSource<Distrito> = new MatTableDataSource();
   displayedColumns: string[] = ['c1', 'c2', 'c3', 'c4'];
+
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+
 
   constructor(private dS: DistritoServices, 
     private router: Router, 
