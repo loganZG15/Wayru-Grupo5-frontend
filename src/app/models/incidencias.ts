@@ -1,5 +1,5 @@
 export class incidencias{
-  idIncidencias: number = 0;
+  idIncidencia: number = 0;
   descripcion: string = '';
   estado: boolean = false;
   fechaIncidencia: Date = new Date();

@@ -69,7 +69,7 @@ export class IncidenciaUpdate implements OnInit {
 
   aceptar(): void {
     if (this.form.valid) {
-      this.inc.idIncidencias = this.form.value.codigo;
+      this.inc.idIncidencia = this.form.value.codigo;
       this.inc.descripcion = this.form.value.descripcion;
       this.inc.fechaIncidencia = this.form.value.fecha;
       this.inc.idUsuario = this.form.value.idUsuario;
@@ -88,7 +88,7 @@ export class IncidenciaUpdate implements OnInit {
   init() {
     this.iS.listId(this.id).subscribe((data) => {
       this.form.patchValue({
-        codigo: data.idIncidencias,
+        codigo: data.idIncidencia,
         descripcion: data.descripcion,
         fecha: data.fechaIncidencia,
         idUsuario: data.idUsuario,
