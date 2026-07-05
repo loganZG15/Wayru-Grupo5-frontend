@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { incidencias } from '../../../models/incidencias';
 import { IncidenciasServices } from '../../../services/incidencias-services';
@@ -14,6 +14,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
+import { LoginService } from '../../../services/login-service';
 @Component({
   selector: 'app-incidencia-insert',
   imports: [MatSelectModule,
@@ -39,12 +40,20 @@ export class IncidenciaInsert implements OnInit {
     private cS: CategoriaIncidenciaServices,
     private dS: DistritoServices,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private loginService: LoginService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.cS.list().subscribe((data) => (this.categorias = data));
-    this.dS.list().subscribe((data) => (this.distritos = data));
+    this.cS.list().subscribe((data) => {
+      this.categorias = data;
+      this.cdr.detectChanges();
+    });
+    this.dS.list().subscribe((data) => {
+      this.distritos = data;
+      this.cdr.detectChanges();
+    });
 
     this.form = this.formBuilder.group({
       descripcion: ['', [Validators.required, Validators.maxLength(250)]],
@@ -54,6 +63,19 @@ export class IncidenciaInsert implements OnInit {
       idDistrito: ['', Validators.required],
       estado: [true, Validators.required],
     });
+
+    if (this.esCliente()) {
+      this.loginService.getPerfil().subscribe({
+        next: (data) => {
+          this.form.patchValue({ idUsuario: data.idUsuario });
+          this.cdr.detectChanges();
+        },
+      });
+    }
+  }
+
+  esCliente(): boolean {
+    return this.loginService.showRole() === 'cliente';
   }
 
   aceptar(): void {
