@@ -72,13 +72,26 @@ export class DistritoInsert implements OnInit {
 
   private extraerNombreDistrito(results: google.maps.GeocoderResult[]): string | null {
     for (const result of results) {
-      const componente = result.address_components.find(
-        (c) => c.types.includes('locality') || c.types.includes('sublocality')
-      );
-      if (componente) {
-        return componente.long_name;
+      const locality = result.address_components.find((c) => c.types.includes('locality'));
+      if (locality) {
+        return locality.long_name;
       }
     }
+    for (const result of results) {
+      const sublocality = result.address_components.find((c) =>
+        c.types.includes('sublocality_level_1')
+      );
+      if (sublocality) {
+        return sublocality.long_name;
+      }
+    }
+    for (const result of results) {
+      const sublocality = result.address_components.find((c) => c.types.includes('sublocality'));
+      if (sublocality) {
+        return sublocality.long_name;
+      }
+    }
+
     return null;
   }
 
