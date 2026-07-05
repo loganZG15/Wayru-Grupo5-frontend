@@ -28,7 +28,6 @@ export class Menucomponent implements OnInit {
   ngOnInit(): void {
     if (this.loginService.verificar()) {
       this.role = this.loginService.showRole() ?? '';
-      this.cargarPerfil();
     }
   }
 
@@ -67,6 +66,7 @@ export class Menucomponent implements OnInit {
 
     if (existe) {
       this.role = this.loginService.showRole() ?? '';
+      this.cargarPerfil();
     }
 
     return existe;
