@@ -55,6 +55,10 @@ export class DistritoList implements OnInit {
     this.dS.list().subscribe({
       next: (data) => {
         this.dataSource.data = data;
+        if (this.dataSource.paginator) {
+          this.dataSource.paginator.firstPage();
+        }
+        this.cdr.detectChanges();
       },
     });
   }
