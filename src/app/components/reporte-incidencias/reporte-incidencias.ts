@@ -18,7 +18,7 @@ export class ReporteIncidencias implements OnInit {
   barChartLegend = true;
   barChartLabels: string[] = [];
   barChartData: ChartDataset[] = [];
-  barChartType: ChartType = 'bar';
+  barChartType: ChartType = 'pie';
 
   constructor(private iS: IncidenciasServices, private cdr: ChangeDetectorRef) {}
 
