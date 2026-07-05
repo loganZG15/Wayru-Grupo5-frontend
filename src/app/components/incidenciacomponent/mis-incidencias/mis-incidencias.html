@@ -62,6 +62,14 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      [pageSize]="10"
+      showFirstLastButtons
+      aria-label="Seleccionar página de mis incidencias"
+    >
+    </mat-paginator>
+
     @if (dataSource.data.length === 0) {
       <div style="text-align: center; margin: 2%">
         <p>Todavía no has registrado ninguna incidencia.</p>

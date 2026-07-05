@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
@@ -7,20 +7,23 @@ import { IncidenciasServices } from '../../../services/incidencias-services';
 import { CategoriaIncidenciaServices } from '../../../services/categoria-incidencia-services';
 import { DistritoServices } from '../../../services/distrito-services';
 import { incidencias } from '../../../models/incidencias';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-mis-incidencias',
-  imports: [MatTableModule, CommonModule, MatIconModule, RouterLink],
+  imports: [MatTableModule, CommonModule, MatIconModule, RouterLink, MatPaginatorModule],
   templateUrl: './mis-incidencias.html',
   styleUrl: './mis-incidencias.css',
 })
-export class MisIncidencias implements OnInit {
+export class MisIncidencias implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<incidencias> = new MatTableDataSource();
   displayedColumns: string[] = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8'];
 
   categorias: Map<number, string> = new Map();
   distritos: Map<number, string> = new Map();
 
+   @ViewChild(MatPaginator) paginator!: MatPaginator;
+   
   constructor(
     private iS: IncidenciasServices,
     private cS: CategoriaIncidenciaServices,
@@ -28,6 +31,10 @@ export class MisIncidencias implements OnInit {
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
+
+  ngAfterViewInit(): void {
+  this.dataSource.paginator = this.paginator;
+}
 
   ngOnInit(): void {
     this.cargarCatalogos();

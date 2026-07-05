@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { CategoriaIncidencia } from '../../../models/categoriaincidencia';
 import { CategoriaIncidenciaServices } from '../../../services/categoria-incidencia-services';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -14,7 +14,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
   templateUrl: './categoria-list.html',
   styleUrl: './categoria-list.css',
 })
-export class CategoriaList implements OnInit {
+export class CategoriaList implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<CategoriaIncidencia> = new MatTableDataSource();
   displayedColumns: string[] = ['c1', 'c2', 'c3'];
 
@@ -26,6 +26,10 @@ export class CategoriaList implements OnInit {
   private router: Router,
   private cdr: ChangeDetectorRef
 ) {}
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+  }
 
   ngOnInit(): void {
     this.cargarCategorias();

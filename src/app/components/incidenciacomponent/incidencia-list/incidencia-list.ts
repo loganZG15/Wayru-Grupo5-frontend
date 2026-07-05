@@ -16,7 +16,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
   templateUrl: './incidencia-list.html',
   styleUrl: './incidencia-list.css',
 })
-export class IncidenciaList implements OnInit{
+export class IncidenciaList implements OnInit, AfterViewInit{
   dataSource: MatTableDataSource<incidencias> = new MatTableDataSource();
   displayedColumns: string[] = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6'];
 
@@ -33,6 +33,9 @@ export class IncidenciaList implements OnInit{
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
+  ngAfterViewInit(): void {
+  this.dataSource.paginator = this.paginator;
+}
 
   ngOnInit(): void {
     this.cargarCatalogos();
