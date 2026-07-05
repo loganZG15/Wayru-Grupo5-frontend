@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Distrito } from '../../../models/distrito';
 import { DistritoServices } from '../../../services/distrito-services';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -20,12 +20,11 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
   templateUrl: './distrito-list.html',
   styleUrl: './distrito-list.css',
 })
-export class DistritoList implements OnInit {
+export class DistritoList implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Distrito> = new MatTableDataSource();
   displayedColumns: string[] = ['c1', 'c2', 'c3', 'c4'];
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
-
 
   constructor(private dS: DistritoServices, 
     private router: Router, 
@@ -45,6 +44,10 @@ export class DistritoList implements OnInit {
       }
       this.cdr.detectChanges();
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
   }
 
   esCliente(): boolean {
