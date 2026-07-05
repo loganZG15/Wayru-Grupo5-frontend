@@ -37,6 +37,7 @@ export class Menucomponent implements OnInit {
     if (this.perfilCargado) {
       return;
     }
+
     this.loginService.getPerfil().subscribe({
       next: (data) => {
         this.nombreUsuario = data.nombreUsuario;
@@ -46,6 +47,7 @@ export class Menucomponent implements OnInit {
       },
       error: () => {
         this.perfilCargado = true;
+        this.cdr.detectChanges();
       },
     });
   }
