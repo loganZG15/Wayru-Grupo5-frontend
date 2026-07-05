@@ -42,7 +42,6 @@ export class DistritoList implements OnInit, AfterViewInit {
       if (event instanceof NavigationEnd) {
         this.cargarDistritos();
       }
-      this.cdr.detectChanges();
     });
   }
 
