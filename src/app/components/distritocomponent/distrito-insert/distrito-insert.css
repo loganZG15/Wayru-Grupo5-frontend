@@ -1,25 +1,5 @@
-mat-form-field {
-  width: 60%;
-}
-
-button[matButton='elevated'] {
-  background-color: #FF6F61;
-  color: white;
-  border: none;
-  padding: 0.5rem 1.25rem;
-  font-size: 1.1rem;
-  border-radius: 0.375rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 60%;
-}
-
-button[matButton='elevated']:hover {
-  background-color: #ff8a7f;
-}
-
 .container {
-  max-width: 560px;
+  max-width: 950px;
   margin: 2.5rem auto;
   padding: 2rem 2.5rem;
   background: #ffffff;
@@ -31,9 +11,66 @@ button[matButton='elevated']:hover {
   color: #2c3e50;
 }
 
+.registro-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.mapa-columna {
+  flex: 1 1 420px;
+  min-width: 320px;
+}
+
+.form-columna {
+  flex: 1 1 320px;
+  min-width: 280px;
+}
+
+.ayuda-mapa {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0;
+}
+
+.buscando {
+  font-size: 0.85rem;
+  color: #4a6fa8;
+}
+
 google-map {
   display: block;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 14px rgba(74, 111, 168, 0.15);
+}
+
+.example-form mat-form-field {
+  width: 100%;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+button[matButton='elevated'] {
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  font-size: 1.1rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+button[matButton='elevated']:hover {
+  background-color: #ff8a7f;
+}
+
+/* En pantallas angostas, el mapa queda arriba y el formulario abajo */
+@media (max-width: 768px) {
+  .registro-layout {
+    flex-direction: column;
+  }
 }
