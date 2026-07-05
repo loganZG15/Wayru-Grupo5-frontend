@@ -57,13 +57,19 @@ export class IncidenciaList implements OnInit, AfterViewInit{
   }
 
   cargarCatalogos() {
-    this.cS.list().subscribe({
-      next: (data) => data.forEach((c) => this.categorias.set(c.idCategoria, c.nombreCategoria)),
-    });
-    this.dS.list().subscribe({
-      next: (data) => data.forEach((d) => this.distritos.set(d.idDistrito, d.nombreDistrito)),
-    });
-  }
+  this.cS.list().subscribe({
+    next: (data) => {
+      data.forEach((c) => this.categorias.set(c.idCategoria, c.nombreCategoria));
+      this.cdr.detectChanges();
+    },
+  });
+  this.dS.list().subscribe({
+    next: (data) => {
+      data.forEach((d) => this.distritos.set(d.idDistrito, d.nombreDistrito));
+      this.cdr.detectChanges();
+    },
+  });
+}
 
   cargarIncidencias() {
     this.iS.list().subscribe({
