@@ -1,4 +1,4 @@
-import { Component , OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { incidencias } from '../../../models/incidencias';
 import { IncidenciasServices } from '../../../services/incidencias-services';
 import { CategoriaIncidenciaServices } from '../../../services/categoria-incidencia-services';
@@ -30,7 +30,8 @@ export class IncidenciaList implements OnInit{
     private cS: CategoriaIncidenciaServices,
     private dS: DistritoServices,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -63,8 +64,12 @@ export class IncidenciaList implements OnInit{
 
   cargarIncidencias() {
     this.iS.list().subscribe({
-      next: (data) => {
-        this.dataSource.data = data;
+    next: (data) => {
+      this.dataSource.data = data;
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
+      this.cdr.detectChanges();
       },
     });
   }

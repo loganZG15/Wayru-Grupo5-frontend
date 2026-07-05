@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { CategoriaIncidencia } from '../../../models/categoriaincidencia';
 import { CategoriaIncidenciaServices } from '../../../services/categoria-incidencia-services';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -23,7 +23,8 @@ export class CategoriaList implements OnInit {
   constructor(
   private cS: CategoriaIncidenciaServices,
   private loginService: LoginService,
-  private router: Router
+  private router: Router,
+  private cdr: ChangeDetectorRef
 ) {}
 
   ngOnInit(): void {
@@ -37,6 +38,7 @@ export class CategoriaList implements OnInit {
       if (event instanceof NavigationEnd) {
         this.cargarCategorias();
       }
+      this.cdr.detectChanges();
     });
   }
 

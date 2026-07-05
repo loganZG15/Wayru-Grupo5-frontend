@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Distrito } from '../../../models/distrito';
 import { DistritoServices } from '../../../services/distrito-services';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -29,7 +29,8 @@ export class DistritoList implements OnInit {
 
   constructor(private dS: DistritoServices, 
     private router: Router, 
-    private loginService: LoginService) {}
+    private loginService: LoginService,
+    private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.cargarDistritos();
@@ -42,6 +43,7 @@ export class DistritoList implements OnInit {
       if (event instanceof NavigationEnd) {
         this.cargarDistritos();
       }
+      this.cdr.detectChanges();
     });
   }
 

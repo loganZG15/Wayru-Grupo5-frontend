@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
@@ -25,7 +25,8 @@ export class MisIncidencias implements OnInit {
     private iS: IncidenciasServices,
     private cS: CategoriaIncidenciaServices,
     private dS: DistritoServices,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -49,15 +50,20 @@ export class MisIncidencias implements OnInit {
   }
 
   cargarIncidencias() {
-    this.iS.misIncidencias().subscribe({
-      next: (data) => {
-        this.dataSource.data = data;
-      },
-      error: () => {
-        this.dataSource.data = [];
-      },
-    });
-  }
+  this.iS.misIncidencias().subscribe({
+    next: (data) => {
+      this.dataSource.data = data;
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
+      this.cdr.detectChanges();
+    },
+    error: () => {
+      this.dataSource.data = [];
+      this.cdr.detectChanges();
+    },
+  });
+}
 
   nombreCategoria(id: number): string {
     return this.categorias.get(id) ?? '—';
