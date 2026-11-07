@@ -1,59 +1,65 @@
-# WaryuFrontend
+# Wary-u (frontend)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.17.
+Aplicación web de Wary-u hecha con Angular, para reportar y consultar incidentes de seguridad en cada zona. Es el frontend del proyecto de curso en equipo (Grupo 5) de la UPC y consume la API del [backend de Wary-u](https://github.com/loganZG15/Wayru-Grupo5).
 
-## Development server
+## Funcionalidades
 
-To start a local development server, run:
+- Inicio de sesión con autenticación JWT
+- Gestión de incidencias: listar, buscar, registrar, editar y ver mis incidencias
+- Gestión de categorías de incidencia
+- Gestión de distritos, con mapa de Google Maps al registrarlos
+- Reportes con gráficos (Chart.js) de incidencias y de distritos
+- Menú de navegación y manejo de errores de la API con un interceptor
+
+## Tecnologías
+
+| Parte | Tecnologías |
+| --- | --- |
+| Framework | Angular 21, TypeScript |
+| Interfaz | Angular Material, HTML, CSS |
+| Gráficos | Chart.js, ng2-charts |
+| Mapas | Angular Google Maps |
+| Autenticación | @auth0/angular-jwt |
+| Pruebas | Vitest |
+
+## Cómo ejecutarlo
+
+### Requisitos
+
+- Node.js y npm
+- Angular CLI (`npm install -g @angular/cli`)
+- Backend de Wary-u en ejecución o acceso a su versión desplegada
+
+### Pasos
 
 ```bash
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Abre `http://localhost:4200/`.
 
-## Code scaffolding
+### Configuración
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **URL de la API:** los servicios de `src/app/services` apuntan a la URL del backend. Cámbiala si usas el backend en local (por ejemplo `http://localhost:8080`).
+- **Google Maps:** el mapa necesita una clave de API propia en `src/index.html`.
 
-```bash
-ng generate component component-name
+## Estructura del proyecto
+
+```
+src/app/
+  components/   Pantallas: login, inicio, menú, incidencias, categorías, distritos, reportes
+  services/     Comunicación con la API
+  models/       Modelos de datos
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Autoría
 
-```bash
-ng generate --help
-```
+Proyecto realizado por el Grupo 5 (UPC). Los aportes de cada persona se pueden ver en la pestaña Contributors y en el historial de commits.
 
-## Building
+- Leonel Venicius Jimenez Solis ([LinkedIn](https://www.linkedin.com/in/leonel-venicius-jimenez-solis-0198a42b0/)), con las cuentas `leonel` y `loganZG15`: desarrollo de la mayor parte del frontend (41 de los 43 commits).
+- Otro integrante del grupo: contribuciones puntuales (ver Contributors).
 
-To build the project run:
+## Estado del proyecto
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Proyecto finalizado y funcional. Se desarrolló como trabajo del curso Arquitectura de aplicaciones web en la UPC y quedó concluido al terminar el ciclo.
